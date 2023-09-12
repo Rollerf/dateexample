@@ -23,7 +23,8 @@ public class UserMapperImpl implements UserMapper {
     public GetUserDto fromUser(User user) {
         return new GetUserDto(user.getNombre(),
                 formatDate(user.getFechaNacimiento()),
-                formatDateTime(user.getFechaRegistro()));
+                formatDateTime(user.getFechaRegistro()),
+                user.getEdad());
     }
 
     private String formatDate(Date date) {

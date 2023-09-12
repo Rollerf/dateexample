@@ -31,4 +31,13 @@ public class User {
     private Date fechaNacimiento;
     @Column
     private Date fechaRegistro;
+
+    public Integer getEdad(){
+        Date fechaActual = new Date();
+        long diferenciaEnMillis = fechaActual.getTime() - fechaNacimiento.getTime();
+        long edadEnMillis = 1000L * 60 * 60 * 24 * 365;
+        int edad = (int) (diferenciaEnMillis / edadEnMillis);
+
+        return edad;
+    }
 }
