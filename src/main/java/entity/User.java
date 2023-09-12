@@ -1,6 +1,7 @@
 package entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -28,7 +29,7 @@ public class User {
     @Column
     private String nombre;
     @Column
-    private Date fechaNacimiento;
+    private LocalDate fechaNacimiento;
     @Column
-    private Date fechaRegistro;
+    private LocalDateTime fechaRegistro;
 }

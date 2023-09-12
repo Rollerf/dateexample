@@ -1,8 +1,8 @@
 package mapper;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import dto.CreateUserDto;
 import dto.GetUserDto;
@@ -16,7 +16,7 @@ public class UserMapperImpl implements UserMapper {
     public User fromCreate(CreateUserDto createUser) {
         return User.builder().nombre(createUser.nombre())
                 .fechaNacimiento(formatDate(createUser.fechaNacimiento()))
-                .fechaRegistro(new Date()).build();
+                .fechaRegistro(LocalDateTime.now()).build();
     }
 
     @Override
@@ -26,24 +26,18 @@ public class UserMapperImpl implements UserMapper {
                 formatDateTime(user.getFechaRegistro()));
     }
 
-    private String formatDate(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return formatter.format(date);
+    private String formatDate(LocalDate localDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return localDate.format(formatter);
     }
 
-    private String formatDateTime(Date date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        return formatter.format(date);
+    private String formatDateTime(LocalDateTime localDateTime) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        return localDateTime.format(formatter);
     }
 
-    private Date formatDate(String date) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            return formatter.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+    private LocalDate formatDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return LocalDate.parse(date, formatter);
     }
 }
