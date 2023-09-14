@@ -16,6 +16,15 @@ docker run --name postgres-container -e POSTGRES_PASSWORD=password -d -p 5432:54
 
 More info -> https://betterprogramming.pub/connect-from-local-machine-to-postgresql-docker-container-f785f00461a7
 
+## Application properties
+
+```properties
+quarkus.datasource.username=postgres
+quarkus.datasource.password=password
+quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/postgres
+quarkus.hibernate-orm.database.generation=update
+```
+
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
