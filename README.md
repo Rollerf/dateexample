@@ -24,6 +24,9 @@ quarkus.datasource.password=password
 quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/postgres
 quarkus.hibernate-orm.database.generation=update
 ```
+## Postman collection
+
+You can find a postman collection in the root of the project. The file is called 'DateAPI.postman_collection.json'
 
 ## Running the application in dev mode
 
