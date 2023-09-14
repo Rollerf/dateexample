@@ -1,7 +1,11 @@
 package entity;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,4 +36,33 @@ public class User {
     private LocalDate fechaNacimiento;
     @Column
     private LocalDateTime fechaRegistro;
+
+    public Integer getEdad() {
+        LocalDate fechaActual = LocalDate.now();
+        Period period = Period.between(fechaNacimiento, fechaActual);
+
+        return period.getYears();
+    }
+
+    public Long getDiasParaCumpleanhos() {
+        LocalDate fechaActual = LocalDate.now();
+        LocalDate fechaCumpleanhos = fechaNacimiento.withYear(fechaActual.getYear());
+
+        if (fechaCumpleanhos.isBefore(fechaActual) || fechaCumpleanhos.isEqual(fechaActual)) {
+            fechaCumpleanhos = fechaCumpleanhos.plusYears(1);
+        }
+
+        long daysUntilNextBirthday = ChronoUnit.DAYS.between(fechaActual, fechaCumpleanhos);
+
+        return daysUntilNextBirthday;
+    }
+
+    public LocalDateTime getFechaRegistroBrasil() {
+        ZoneId zonaBrasil = ZoneId.of("America/Sao_Paulo");
+        Instant fechaRegistroInstant = fechaRegistro
+                .atZone(ZoneId.systemDefault())
+                .toInstant();
+
+        return LocalDateTime.ofInstant(fechaRegistroInstant, zonaBrasil);
+    }
 }
